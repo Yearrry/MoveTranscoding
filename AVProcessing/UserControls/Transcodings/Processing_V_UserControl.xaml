@@ -1,0 +1,255 @@
+﻿<UserControl x:Class="AVProcessing.UserControls.Transcodings.Processing_V_UserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AVProcessing.UserControls.Transcodings"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="White" FontFamily="幼圆">
+    <UserControl.Resources>
+        <FontFamily x:Key="iconfont">../../Resources/fonts/iconfont.ttf#iconfont</FontFamily>
+    </UserControl.Resources>
+    <Grid Margin="0 15 0 0">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="  视频格式转换  ">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <!--视频转换 ↓-->
+
+                <TextBox Margin="0 0 69 0" IsReadOnly="True" Height="30" Text="{Binding OldFileName}" Padding="5 0 0 0"
+                         VerticalContentAlignment="Center" BorderBrush="#C0C0C0" BorderThickness="0.7"/>
+
+                <Button Style="{DynamicResource ButtonStyle1}"  Content="&#xe726;" FontFamily="{StaticResource iconfont}" 
+                        FontSize="25" Height="auto" HorizontalAlignment="Right" ToolTip="选择视频" Command="{Binding OpenFile}"/>
+
+                <ComboBox Text="mp4" TextBlock.FontWeight="SemiBold" VerticalContentAlignment="Center" Height="30" Background="White" Cursor="Hand"
+                Width="100" HorizontalContentAlignment="Center"  Grid.Column="1" x:Name="sigleFormat">
+                    <ComboBox.Style>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItemStyle}"/>
+                            <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"/>
+                        </Style>
+                    </ComboBox.Style>
+                    <ComboBoxItem Content="mp4" IsSelected="True" Background="{x:Null}"/>
+                    <ComboBoxItem Content="Flv" Background="{x:Null}"/>
+                    <ComboBoxItem Content="ts" Background="{x:Null}"/>
+                    <!--<ComboBoxItem Content="m3u8" Background="{x:Null}"/>-->
+                </ComboBox>
+
+                <TextBox Grid.Column="2" Margin="10 7" Padding="5 0 0 0" Text="{Binding NewFileName}" x:Name="changepathTextbox" Tag="请输入转换后的文件路径与文件名"
+                         VerticalContentAlignment="Center" BorderBrush="#C0C0C0" BorderThickness="0.7" Style="{DynamicResource TextBoxStyle1}">
+
+                </TextBox>
+
+                <Button Style="{DynamicResource ButtonStyle1}"  Content="&#xe675;" FontFamily="{StaticResource iconfont}" Grid.Column="3"
+                    FontSize="25" Height="auto" ToolTip="开始转换" Command="{Binding SingleFileChange}" CommandParameter="{Binding Text,ElementName=sigleFormat}"/>
+
+                <!--文件转换  ↓-->
+
+                <TextBox Grid.Row="2" Margin="0 0 69 0" IsReadOnly="True"  Text="{Binding OldDirectoryName}" Padding="5 0 0 0"
+                         VerticalContentAlignment="Center" BorderBrush="#C0C0C0" BorderThickness="0.7"/>
+
+                <Button Style="{DynamicResource ButtonStyle1}"  Content="&#xe609;" FontFamily="{StaticResource iconfont}" 
+                        FontSize="22" Height="auto" ToolTip="选择文件"  Grid.Row="2" HorizontalAlignment="Right"
+                        Command="{Binding OpenDirectory}"/>
+
+                <ComboBox Text="MP4" TextBlock.FontWeight="SemiBold" VerticalContentAlignment="Center" Height="30" Background="White" Cursor="Hand"
+                Width="100" HorizontalContentAlignment="Center"  Grid.Column="1" Grid.Row="2" Name="DirectoryFormat">
+                    <ComboBox.Style>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItemStyle}"/>
+                            <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"/>
+                        </Style>
+                    </ComboBox.Style>
+                    <ComboBoxItem Content="mp4" IsSelected="True" Background="{x:Null}"/>
+                    <ComboBoxItem Content="flv" Background="{x:Null}"/>
+                    <ComboBoxItem Content="ts" Background="{x:Null}"/>
+                </ComboBox>
+
+                <TextBox Grid.Column="2" Margin="10 0" Padding="5 0 0 0" Tag="转换后的文件路径" Grid.Row="2" Width="125" HorizontalAlignment="Left"
+                         VerticalContentAlignment="Center" BorderBrush="#C0C0C0" BorderThickness="0.7" Style="{DynamicResource TextBoxStyle1}"
+                         Text="{Binding NewDirectory}">
+
+                </TextBox>
+
+                <TextBox Grid.Column="2" Margin="10 0" Padding="5 0 0 0" Tag="转换后的文件名" Grid.Row="2" Width="125" HorizontalAlignment="Right"
+                         VerticalContentAlignment="Center" BorderBrush="#C0C0C0" BorderThickness="0.7" Style="{DynamicResource TextBoxStyle1}"
+                         Text="{Binding NewFilename_Directory}">
+
+                </TextBox>
+
+                <Button Style="{DynamicResource ButtonStyle1}"  Content="&#xe675;" FontFamily="{StaticResource iconfont}" Grid.Column="3"
+                    FontSize="25" Height="auto" ToolTip="开始转换" Grid.Row="2"
+                        Command="{Binding DirectoryFileChange}"
+                        CommandParameter="{Binding Text,ElementName=DirectoryFormat}"/>
+
+                <GroupBox Grid.Row="3" Margin="0 10 0 0" Header="文件明细">
+                    <TextBox IsReadOnly="True" BorderThickness="0" Margin="5" Text="{Binding OldDirectoryDetailName}"/>
+                </GroupBox>
+
+                <GroupBox  Grid.Row="3" Grid.Column="2"  Grid.ColumnSpan="2" Margin="10 10 10 0"  Header="转换结果">
+                    <ScrollViewer>
+                    <ScrollViewer.Resources>
+                        <SolidColorBrush x:Key="ScrollBar.Static.Thumb" Color="#C0C0C0"/>
+                        <Style TargetType="ScrollBar" BasedOn="{StaticResource myScrollBara}">
+                        </Style>
+                    </ScrollViewer.Resources>
+
+                        <ListBox Margin="5" ItemsPanel="{DynamicResource FileTemplate}" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemContainerStyle="{DynamicResource FileBoxItemStyle}"
+                             PreviewMouseWheel="listbox_PreviewMouseWheel" ItemsSource="{Binding ResultFile}">
+                        </ListBox>
+                    </ScrollViewer>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+
+        <!-- M4s 音视频合成 -->
+
+        <GroupBox Grid.Row="1" Header=" M4s 音视频合成 " Margin="0 10 0 0 ">
+            <Grid Margin="10">
+                <Grid.Resources>
+                    <Style  x:Key="PV_Textbox" TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle1}">
+                        <Setter Property="Padding" Value="5 0 0 0"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="BorderThickness" Value="0.7"/>
+                        <Setter Property="BorderBrush" Value="#C0C0C0"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.7*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <!--第一行  单个M4s 合成-->
+
+                <TextBox Margin="0 5" Tag="音频文件" Text="{Binding AudioName_m4s}"
+                         Style="{DynamicResource PV_Textbox}"/>
+                <Button Style="{DynamicResource ButtonStyle1}"  Content="&#xe63d;" FontFamily="{StaticResource iconfont}" Margin="0 0 15 0"
+                        FontSize="16" Height="auto" HorizontalAlignment="Right" ToolTip="选择音频" Width="auto" Command="{Binding OpenRadio_m4s}"/>
+
+                <TextBox Tag="视频文件" Grid.Column="1" Margin="5 5 0 5 " Text="{Binding VideoName_m4s}"
+                         Style="{DynamicResource PV_Textbox}"/>
+                <Button Style="{DynamicResource ButtonStyle1}"  Content="&#xe63d;" FontFamily="{StaticResource iconfont}" Grid.Column="1" Margin="0 0 10 0"
+                        FontSize="16" Height="auto" HorizontalAlignment="Right" ToolTip="选择视频" Width="auto" Command="{Binding OpenVideo_m4s}"/>
+
+                <ComboBox Text="mp4" TextBlock.FontWeight="SemiBold" VerticalContentAlignment="Center" Height="30" Background="White" Cursor="Hand"
+                Width="100" HorizontalContentAlignment="Center"  Grid.Column="2"  Name="m4sSingle" >
+                    <ComboBox.Style>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItemStyle}"/>
+                            <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"/>
+                        </Style>
+                    </ComboBox.Style>
+                    <ComboBoxItem Content="mp4" IsSelected="True" Background="{x:Null}"/>
+                    <ComboBoxItem Content="flv" Background="{x:Null}"/>
+                    <ComboBoxItem Content="ts" Background="{x:Null}"/>
+                </ComboBox>
+
+                <TextBox Padding="5 0 0 0" Tag="新文件路径与名" Grid.Column="3" Margin="15 5 5 5" Text="{Binding SingleCompoundPath_m4s}"
+                         VerticalContentAlignment="Center" BorderBrush="#C0C0C0" BorderThickness="0.7" Style="{DynamicResource TextBoxStyle1}"/>
+
+                <Button Style="{DynamicResource ButtonStyle1}"  Content="&#xe675;" FontFamily="{StaticResource iconfont}" Grid.Column="4"
+                    FontSize="25" Height="auto" ToolTip="开始转换" 
+                        Command="{Binding Singlem4sCompound}" CommandParameter="{Binding Text,ElementName=m4sSingle}"/>
+
+                <!--第一行结束-->
+                <!--多个m4s 文件 合成视频-->
+
+                <TextBox Margin="0 5" Tag="m4s文件列表的文件夹" Grid.Row="2" Height="28" Text="{Binding Oldm4sDirectoryPath}"
+                        Style="{DynamicResource PV_Textbox}"/>
+                <Button Style="{DynamicResource ButtonStyle1}"  Content="&#xe63d;" FontFamily="{StaticResource iconfont}" Margin="0 0 15 0" Grid.Row="2"
+                        FontSize="16" Height="auto" HorizontalAlignment="Right" ToolTip="选择视频" Width="auto"
+                        Command="{Binding OpenDirectory_m4s}"/>
+
+                <TextBox Margin="0 5" Tag="音视频文件相对路径"  Grid.Row="3" Height="28" Text="{Binding Av_DirectoryRelativepath}"
+                         Style="{DynamicResource PV_Textbox}"/>
+                <Button Style="{DynamicResource ButtonStyle1}"  Content="&#xe63d;" FontFamily="{StaticResource iconfont}" Margin="0 0 15 0" Grid.Row="3"
+                        FontSize="16" Height="auto" HorizontalAlignment="Right" ToolTip="检查路径" Width="auto"
+                        Command="{Binding CheckRelativePath_m4s}"/>
+
+                <TextBox Grid.Row="4" IsReadOnly="True" Margin="5 10 0 10" BorderThickness="0" Grid.ColumnSpan="2" FontSize="13"
+                         VerticalContentAlignment="Center" Text="{Binding Oldm4sDirectoryPath,StringFormat={}{0}\\相对路径\\audio.m4s||video.m4s}"/>
+
+                <TextBox Grid.Column="1" Grid.Row="2" IsReadOnly="True" Margin="5 10 0 10" BorderThickness="0"
+                         VerticalContentAlignment="Center" Text="{Binding M4slistDirectoryCountStr}"/>
+
+                <TextBox Grid.Column="1" Grid.Row="3" IsReadOnly="True" Margin="5 10 0 10" Text="{Binding Avm4sCountStr}" BorderThickness="0"
+                         VerticalContentAlignment="Center" />
+
+                <StackPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Margin="5" >
+
+                    <ComboBox Text="mp4" TextBlock.FontWeight="SemiBold" VerticalContentAlignment="Center" Height="30" Background="White" Cursor="Hand"
+                Width="100" HorizontalContentAlignment="Center"  Grid.Column="2" x:Name="direCtoryForamt_m4s">
+                        <ComboBox.Style>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItemStyle}"/>
+                                <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"/>
+                            </Style>
+                        </ComboBox.Style>
+                        <ComboBoxItem Content="mp4" IsSelected="True" Background="{x:Null}"/>
+                        <ComboBoxItem Content="flv" Background="{x:Null}"/>
+                        <ComboBoxItem Content="ts" Background="{x:Null}"/>
+                    </ComboBox>
+
+                    <TextBox Padding="5 0 0 0" Tag="新文件目录" Margin="0 10" Height="28" Text="{Binding NewDirectoryPath_m4s}"
+                         VerticalContentAlignment="Center" BorderBrush="#C0C0C0" BorderThickness="0.7" Style="{DynamicResource TextBoxStyle1}"/>
+
+                    <TextBox Padding="5 0 0 0" Tag="新文件名" Height="28" Text="{Binding NewFileName_m4s}"
+                         VerticalContentAlignment="Center" BorderBrush="#C0C0C0" BorderThickness="0.7" Style="{DynamicResource TextBoxStyle1}"/>
+
+                </StackPanel>
+
+                <Button Style="{DynamicResource ButtonStyle1}"  Content="&#xe675;" FontFamily="{StaticResource iconfont}" Grid.Row="4" Grid.Column="2"
+                    FontSize="25" Height="auto" ToolTip="开始转换" HorizontalAlignment="Center"
+                        Command="{Binding Directorym4sCompound}" CommandParameter="{Binding Text,ElementName=direCtoryForamt_m4s}"/>
+
+                <!--多个m4s 文件 合成视频-->
+
+                <GroupBox Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" Header="转换结果" Margin="10">
+                    <ScrollViewer>
+                        <ScrollViewer.Resources>
+                            <SolidColorBrush x:Key="ScrollBar.Static.Thumb" Color="#C0C0C0"/>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource myScrollBara}">
+                            </Style>
+                        </ScrollViewer.Resources>
+
+                        <ListBox Margin="5" ItemsPanel="{DynamicResource FileTemplate}" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemContainerStyle="{DynamicResource FileBoxItemStyle}"
+                             PreviewMouseWheel="listbox_PreviewMouseWheel" ItemsSource="{Binding M4s_resultFile}">
+                        </ListBox>
+                    </ScrollViewer>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

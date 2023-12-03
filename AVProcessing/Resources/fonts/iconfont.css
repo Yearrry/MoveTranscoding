@@ -1,0 +1,91 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3251950 */
+  src: url('iconfont.woff2?t=1647782479743') format('woff2'),
+       url('iconfont.woff?t=1647782479743') format('woff'),
+       url('iconfont.ttf?t=1647782479743') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-zanting:before {
+  content: "\e620";
+}
+
+.icon-jingyin:before {
+  content: "\e606";
+}
+
+.icon-quanping:before {
+  content: "\ec13";
+}
+
+.icon-quanping1:before {
+  content: "\e621";
+}
+
+.icon-24gl-pause2:before {
+  content: "\ea6d";
+}
+
+.icon-24gl-play:before {
+  content: "\ea6e";
+}
+
+.icon-quanping2:before {
+  content: "\e626";
+}
+
+.icon-jingyin1:before {
+  content: "\e6e5";
+}
+
+.icon-kuaijin:before {
+  content: "\e61a";
+}
+
+.icon-kuaitui:before {
+  content: "\e61b";
+}
+
+.icon-icon-goods:before {
+  content: "\e63d";
+}
+
+.icon-zhuye:before {
+  content: "\e667";
+}
+
+.icon-shipin-:before {
+  content: "\e726";
+}
+
+.icon-guanli:before {
+  content: "\eb3b";
+}
+
+.icon-mobanguanli:before {
+  content: "\e609";
+}
+
+.icon-zhuye1:before {
+  content: "\e83a";
+}
+
+.icon-shipin2:before {
+  content: "\e636";
+}
+
+.icon-zhuye2:before {
+  content: "\e8a1";
+}
+
+.icon-zhuanhuan-03:before {
+  content: "\e675";
+}
+

@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="AVProcessing.UserControls.ScreeningUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Converter="clr-namespace:AVProcessing.Common.Converters"
+             xmlns:local="clr-namespace:AVProcessing.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="800"  FontFamily="youyuan">
+    <UserControl.Resources>
+        <Converter:movieSliderConverter x:Key="movieSliderConvert"></Converter:movieSliderConverter>
+    </UserControl.Resources>
+    <Grid Margin="3" Background="White" Height="800">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0.7" BorderBrush="#C0c0c0" CornerRadius="4">
+            <Grid>
+                <MediaElement x:Name="playMovie" Source="{Binding PlaySource}" LoadedBehavior="Manual" Stretch="Fill" MediaOpened="playMovie_MediaOpened"/>
+                
+                <Border Background="#152B3034" Padding="75 0" VerticalAlignment="Bottom">
+                    <StackPanel VerticalAlignment="Bottom" TextBlock.FontFamily="Comic sans ms" TextBlock.Foreground="White">
+                        <Slider Style="{StaticResource LyricSlider}" x:Name="LyricSlider" Margin="0 15 0 0" Minimum="0" Maximum="830" PreviewMouseLeftButtonUp="LyricSlider_PreviewMouseLeftButtonUp"/>
+
+                        <Grid Margin="0 20 0 15">
+                            <TextBlock VerticalAlignment="Center" FontSize="16" x:Name="moviePositionTime"/>
+
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <StackPanel.Resources>
+                                    <FontFamily x:Key="iconfont">../Resources/fonts/iconfont.ttf#iconfont</FontFamily>
+                                    <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle1}">
+                                        <Setter Property="FontFamily" Value="{StaticResource iconfont}"/>
+                                        <Setter Property="Height" Value="30"/>
+                                        <Setter Property="Width" Value="30"/>
+                                        <Setter Property="FontSize" Value="23"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Button Content="&#xe6e5;" ToolTip="展开"/>
+                                <Button Content="&#xe61b;" ToolTip="展开" Margin="15 0" Click="Button_Click_1"/>
+                                <Grid>
+                                    <Button Content="&#xea6d;" ToolTip="展开" Click="PauseButton_Click" Panel.ZIndex="1" x:Name="stopButton"/>
+                                    <Button Content="&#xea6e;" ToolTip="展开" Click="StartButton_Click" Panel.ZIndex="2" x:Name="startButton"/>
+                                </Grid>
+                                <Button Content="&#xe61a;" ToolTip="展开" Margin="15 0"/>
+                                <Button Content="&#xec13;" ToolTip="展开"/>
+                                
+                            </StackPanel>
+
+                            <TextBlock x:Name="movieNDTime" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 8 0" FontSize="16"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+        <Border Grid.Row="1" Background="#2B3034" Height="50" VerticalAlignment="Top" Padding="70 0">
+            <Button Content="选择文件" FontSize="14" Foreground="White" Style="{DynamicResource ButtonStyle1}" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Command="{Binding SelectSourceCommand}"/>
+        </Border>
+    </Grid>
+</UserControl>
